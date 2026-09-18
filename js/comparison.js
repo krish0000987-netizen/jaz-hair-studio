@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setPosition(percent) {
       const clamped = Math.max(0, Math.min(100, percent));
-      beforeImage.style.width = `${clamped}%`;
+      beforeImage.style.clipPath = `polygon(0 0, ${clamped}% 0, ${clamped}% 100%, 0 100%)`;
       handle.style.left = `${clamped}%`;
       if (rangeSlider) rangeSlider.value = clamped;
     }
@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleMove(e) {
       if (!isDragging && e.type !== 'click') return;
+      const clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : null);
+      if (clientX === null) return;
       const rect = container.getBoundingClientRect();
-      const pageX = e.pageX || (e.touches && e.touches[0].pageX);
-      if (!pageX) return;
-      const xPos = pageX - rect.left - window.scrollX;
+      const xPos = clientX - rect.left;
       const percent = (xPos / rect.width) * 100;
       setPosition(percent);
     }
