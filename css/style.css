@@ -827,6 +827,15 @@ p.lead {
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 
+/* Responsive visibility utilities */
+.show-mobile {
+  display: none !important;
+}
+
+.hide-mobile {
+  display: inline;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -835,3 +844,4 @@ p.lead {
     scroll-behavior: auto !important;
   }
 }
+

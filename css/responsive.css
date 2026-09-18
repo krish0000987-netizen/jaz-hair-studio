@@ -89,27 +89,36 @@
   }
 
   body {
-    padding-bottom: 64px; /* Space for bottom sticky bar */
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); /* Space for bottom sticky bar */
   }
 
   .container {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .section {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+
+  /* Responsive visibility utilities */
+  .show-mobile {
+    display: inline !important;
+  }
+
+  .hide-mobile {
+    display: none !important;
   }
 
   /* Header & Logo on mobile */
   .brand-logo-text {
-    font-size: 1.22rem;
+    font-size: 1.18rem;
     letter-spacing: 0.08em;
   }
 
   .brand-logo-sub {
-    font-size: 0.56rem;
+    font-size: 0.54rem;
     letter-spacing: 0.16em;
   }
 
@@ -119,35 +128,50 @@
 
   /* Hero Slider on mobile */
   .hero-slider-section {
-    height: 82vh;
-    min-height: 480px;
-    max-height: 640px;
+    min-height: calc(100svh - 70px);
+    min-height: calc(100dvh - 70px);
+    height: auto;
+    max-height: none;
+    padding: 16px 0 28px;
   }
 
   .hero-overlay {
     background: linear-gradient(
       180deg,
-      rgba(14, 14, 14, 0.35) 0%,
-      rgba(14, 14, 14, 0.75) 45%,
-      rgba(14, 14, 14, 0.94) 100%
+      rgba(14, 14, 14, 0.4) 0%,
+      rgba(14, 14, 14, 0.78) 48%,
+      rgba(14, 14, 14, 0.96) 100%
     );
   }
 
   .hero-content-container {
-    align-items: flex-end;
-    padding-bottom: 48px;
+    align-items: center;
+    padding-top: 14px;
+    padding-bottom: 24px;
+  }
+
+  .hero-content-box {
+    max-width: 100%;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 0.75rem;
   }
 
   .hero-title {
-    font-size: clamp(1.85rem, 5.8vw, 2.35rem);
+    font-size: clamp(1.72rem, 6.2vw, 2.2rem);
     line-height: 1.18;
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
   }
 
   .hero-subtitle {
-    font-size: 0.94rem;
-    line-height: 1.6;
-    margin-bottom: 1.4rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 1.15rem;
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .hero-slider-arrow {
@@ -155,14 +179,83 @@
   }
 
   .hero-slider-dots {
-    bottom: 20px;
+    bottom: 12px;
+  }
+
+  /* Hero Buttons on Mobile: Sleek side-by-side 2-column layout */
+  .hero-content-box .btn-group,
+  .page-hero-content .btn-group {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-top: 0.9rem !important;
+    margin-bottom: 0.25rem !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+  }
+
+  .hero-content-box .btn,
+  .page-hero-content .btn {
+    width: 100% !important;
+    padding: 12px 8px !important;
+    font-size: 0.84rem !important;
+    font-weight: 600 !important;
+    line-height: 1.25 !important;
+    min-height: 48px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: normal !important;
+    border-radius: var(--radius-sm) !important;
+    box-sizing: border-box !important;
+    gap: 6px !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  .hero-content-box .btn svg,
+  .page-hero-content .btn svg {
+    flex-shrink: 0;
+    width: 17px;
+    height: 17px;
   }
 
   .hero-trust-bar {
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     gap: 8px;
-    padding-top: 1rem;
-    margin-top: 1.2rem;
+    padding-top: 0.85rem;
+    margin-top: 0.95rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.88);
+    justify-content: flex-start;
+  }
+
+  /* Sub-Page Hero on Mobile */
+  .page-hero {
+    padding: 40px 0 32px;
+  }
+
+  .page-hero-grid {
+    gap: 22px;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(1.6rem, 5.8vw, 1.95rem);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-hero .lead {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+
+  .page-hero-media {
+    aspect-ratio: 16/10;
+    max-height: 240px;
   }
 
   /* Before / After Slider on mobile - square 1:1 so face & hair are fully visible */
@@ -228,22 +321,33 @@
     justify-content: center;
   }
 
-  /* Floating WhatsApp on Mobile */
-  .floating-whatsapp span {
-    display: none;
+  /* General button styling on mobile outside hero */
+  .btn-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
   }
 
+  .btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  .btn-lg {
+    padding: 13px 22px;
+    font-size: 0.92rem;
+  }
+
+  .btn-sm {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+  }
+
+  /* Floating WhatsApp on Mobile — HIDDEN to eliminate overlap with content and sticky bar */
   .floating-whatsapp {
-    bottom: 78px; /* Safe distance above bottom mobile call bar */
-    right: 16px;
-    padding: 13px;
-    border-radius: 50%;
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-  }
-
-  .floating-whatsapp svg {
-    width: 26px;
-    height: 26px;
+    display: none !important;
   }
 
   /* Mobile Sticky Bottom Bar */
@@ -255,7 +359,7 @@
     width: 100%;
     background: #FFFFFF;
     border-top: 1px solid var(--border-subtle);
-    padding: 9px 14px;
+    padding: 9px 14px calc(9px + env(safe-area-inset-bottom, 0px));
     z-index: 980;
     box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.08);
   }
@@ -266,17 +370,11 @@
     gap: 8px;
   }
 
-  .btn-group {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn {
-    width: 100%;
-  }
-
-  .btn-sm {
-    width: auto;
+  .mobile-sticky-bar .btn {
+    padding: 10px 12px;
+    font-size: 0.84rem;
+    min-height: 42px;
+    gap: 6px;
   }
 
   .stats-grid {
@@ -287,14 +385,6 @@
 
 /* Small Screen Phones (<= 480px) */
 @media screen and (max-width: 480px) {
-  .hero-title {
-    font-size: 1.8rem;
-  }
-
-  .hero-trust-bar {
-    font-size: 0.72rem;
-  }
-
   .luxury-form {
     padding: 20px 16px;
   }
@@ -304,3 +394,24 @@
     padding: 12px 14px;
   }
 }
+
+/* Very Small Phones (<= 380px) */
+@media screen and (max-width: 380px) {
+  .hero-content-box .btn,
+  .page-hero-content .btn {
+    padding: 10px 6px !important;
+    font-size: 0.78rem !important;
+    gap: 4px !important;
+    min-height: 44px !important;
+  }
+
+  .hero-title {
+    font-size: 1.62rem;
+  }
+
+  .hero-trust-bar {
+    font-size: 0.68rem;
+    gap: 6px;
+  }
+}
+
